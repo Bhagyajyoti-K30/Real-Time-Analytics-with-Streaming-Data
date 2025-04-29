@@ -1,0 +1,25 @@
+1. Setting Up Spark Session
+from pyspark.sql import SparkSession
+# Create a Spark session
+spark = SparkSession.builder \
+    .appName("DataProcessingPipeline") \
+    .getOrCreate()
+
+2. Loading Data
+# Load data from a CSV file
+df = spark.read.csv("path/to/data.csv", header=True, inferSchema=True)
+df.show()
+
+3. Data Transformation
+# Example: Filtering and selecting columns
+transformed_df = df.filter(df['column_name'] > some_value) \
+                   .select('column1', 'column2')
+transformed_df.show()
+
+4. Writing Output Data
+# Write the transformed data back to storage
+transformed_df.write.csv("path/to/output.csv", header=True)
+
+5.  Basic Performance Tuning
+# Repartitioning the dataframe for better performance
+df = df.repartition(4)
